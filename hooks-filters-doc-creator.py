@@ -6,33 +6,32 @@
 
 import os
 import sys
-from glob import glob
 
 import locate
+import github
 
 
 def clear_screen():
 	os.system("cls" if os.name == 'nt' else 'clear')
 
 
-def get_hooks_filters(files):
+def get_hooks_filters(user, repo, files):
 	"""Gets all hooks and filters from files (path strings)"""
 	hooks = dict()
 	filters = dict()
 	for file in files:
 		print("Opening file: {}...".format(file))
-		with open(file) as f:
-			hooks_filters = locate.locate_hooks_filters(f.readlines())
-			hooks.update(hooks_filters['hooks'])
-			filters.update(hooks_filters['filters'])
+		file_contents = github.get_file_lines(user, repo, file)
+		hooks_filters = locate.locate_hooks_filters(file_contents)
+		hooks.update(hooks_filters['hooks'])
+		filters.update(hooks_filters['filters'])			
 	return hooks, filters
 
 if __name__ == '__main__':
 	clear_screen()
 	if (len(sys.argv) > 1):
-		project_files = [y for x in os.walk(sys.argv[1]) for y in glob(os.path.join(x[0], '*.php'))]
-		print("Found {} files...".format(len(project_files)))
-		hooks, filters = get_hooks_filters(project_files)
+		project_files = github.get_paths(sys.argv[1], sys.argv[2])
+		hooks, filters = get_hooks_filters(sys.argv[1], sys.argv[2], project_files)
 		print("We found {} hooks and {} filters!".format(len(hooks), len(filters)))
 		for hook, desc in hooks.items():
 			print("{}: {}".format(hook, desc))
