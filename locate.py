@@ -1,11 +1,27 @@
 import re
 
+import github
+
 hook_pattern = re.compile('\s*do_action\(\s*[\'\"]*([A-Za-z_-]+)[\'\"]*.*\);\s*')
 filter_pattern = re.compile('.*apply_filters\(\s*[\'\"]*([A-Za-z_-]+)[\'\"]*.*\);\s*')
 doc_pattern = re.compile('\s*//\s*(.+)')
 
 
-def locate_hooks_filters(contents):
+def locate_all_hooks_filters(user, repo):
+	"""Returns all hooks and filters in repo"""
+	hooks = dict()
+	filters = dict()
+	repo_files = github.get_paths(user, repo)
+	for file in repo_files:
+		print("Opening file: {}...".format(file))
+		file_contents = github.get_file_lines(user, repo, file)
+		hooks_filters = locate.locate_hooks_filters(file_contents)
+		hooks.update(hooks_filters['hooks'])
+		filters.update(hooks_filters['filters'])			
+	return hooks, filters
+
+
+def search_file_for_hooks_filters(contents):
 	"""Scans contents and returns hooks and filters"""
 	hooks = dict()
 	filters = dict()
