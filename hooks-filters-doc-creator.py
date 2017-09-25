@@ -5,6 +5,8 @@
 # Python Version: 3.6.1
 
 import os
+import sys
+from glob import glob
 
 import locate
 
@@ -18,6 +20,7 @@ def get_hooks_filters(files):
 	hooks = dict()
 	filters = dict()
 	for file in files:
+		print("Opening file: {}...".format(file))
 		with open(file) as f:
 			hooks_filters = locate.locate_hooks_filters(f.readlines())
 			hooks.update(hooks_filters['hooks'])
@@ -26,6 +29,12 @@ def get_hooks_filters(files):
 
 if __name__ == '__main__':
 	clear_screen()
-	files = ['class-qmn-quiz-manager.php', 'class-qmn-quiz-creator.php']
-	hooks, filters = get_hooks_filters(files)
-	print("We found {} hooks and {} filters!".format(len(hooks), len(filters)))
+	if (len(sys.argv) > 1):
+		project_files = [y for x in os.walk(sys.argv[1]) for y in glob(os.path.join(x[0], '*.php'))]
+		print("Found {} files...".format(len(project_files)))
+		hooks, filters = get_hooks_filters(project_files)
+		print("We found {} hooks and {} filters!".format(len(hooks), len(filters)))
+		for hook, desc in hooks.items():
+			print("{}: {}".format(hook, desc))
+		for filter, desc in filters.items():
+			print("{}: {}".format(filter, desc))
