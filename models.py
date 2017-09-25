@@ -9,6 +9,8 @@ class Queue(Model):
 	user = TextField()
 	repo = TextField()
 	email = TextField()
+	hooks = TextField()
+	filters = TextField()
 
 	@classmethod
 	def create_queue_entry(cls, user, repo, email):
@@ -19,7 +21,9 @@ class Queue(Model):
 					status='queued',
 					user=user,
 					repo=repo,
-					email=email
+					email=email,
+					hooks='',
+					filters=''
 				)
 		except IntegrityError:
 			pass
