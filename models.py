@@ -11,8 +11,8 @@ class Queue(Model):
 	email = TextField()
 
 	@classmethod
-	def create_quote(cls, user, repo, email):
-		"""Adds a new quote to the database."""
+	def create_queue_entry(cls, user, repo, email):
+		"""Adds a new repo to the queue."""
 		try:
 			with config.DATABASE.transaction():
 				cls.create(
