@@ -6,6 +6,7 @@
 
 import os
 import sys
+from time import sleep
 
 import locate
 import github
@@ -16,13 +17,17 @@ def clear_screen():
 	os.system("cls" if os.name == 'nt' else 'clear')
 
 
-def get_hooks_filters(user, repo):
-	"""Gets all hooks and filters from files (path strings)"""
-	return locate.locate_all_hooks_filters(user, repo)
+def main_loop():
+	"""Monitiors queue and loads data for next repo in queue"""
+	while True:
+		repo = models.Queue.get_next_repo()
+		if repo:
+			hooks, filters = locate.locate_all_hooks_filters(repo.user, repo.repo)
+			# @todo - Update database row
+		sleep(300) # sleep for a few minutes to not go over GitHub rate limit  			
+
 
 if __name__ == '__main__':
 	clear_screen()
 	models.initialize()
-	if len(sys.argv) > 0:
-		hooks, filters = get_hooks_filters(sys.argv[1], sys.argv[2])
-		print("Found {} hooks and {} filters".format(len(hooks), len(filters)))
+	main_loop()
