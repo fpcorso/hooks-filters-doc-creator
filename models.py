@@ -24,6 +24,14 @@ class Queue(Model):
 		except IntegrityError:
 			pass
 
+	@staticmethod
+	def get_next_repo():
+		"""Returns the next repo in queue"""
+		try:
+			return Queue.select().get()
+		except DoesNotExist:
+			return None
+
 	class Meta:
 		database = config.DATABASE
 
