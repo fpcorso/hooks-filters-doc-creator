@@ -6,6 +6,7 @@
 
 import os
 import sys
+import json
 from time import sleep
 
 import locate
@@ -23,7 +24,9 @@ def main_loop():
 		repo = models.Queue.get_next_repo()
 		if repo:
 			hooks, filters = locate.locate_all_hooks_filters(repo.user, repo.repo)
-			# @todo - Update database row
+			repo.hooks = json.dumps(hooks)
+			repo.filters = json.dumps(filters)
+			repo.save()
 		sleep(300) # sleep for a few minutes to not go over GitHub rate limit  			
 
 
