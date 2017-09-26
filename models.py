@@ -32,7 +32,7 @@ class Queue(Model):
 	def get_next_repo():
 		"""Returns the next repo in queue"""
 		try:
-			return Queue.select().get()
+			return Queue.select().where(Queue.status == 'queued').get()
 		except DoesNotExist:
 			return None
 
