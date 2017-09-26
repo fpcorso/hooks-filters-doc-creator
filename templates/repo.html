@@ -3,12 +3,16 @@
 {% block head_title %}Repo: {{ repo }}{% endblock %}
 {% block main_header %}Repo: {{ repo }}{% endblock %}
 {% block content %}
-<h3>Hooks</h3>
-{% for hook, desc in hooks.items() %}
-<p>{{ hook }}: {{ desc }}</p>
-{% endfor %}
-<h3>Filters</h3>
-{% for filter, desc in filters.items() %}
-<p>{{ filter }}: {{ desc }}</p>
-{% endfor %}
+<section>
+    <div class="section-content">
+        <h3>Hooks</h3>
+        {% for hook, desc in hooks.items() %}
+        <p>{{ hook }}: {{ desc }}</p>
+        {% endfor %}
+        <h3>Filters</h3>
+        {% for filter, desc in filters.items() %}
+        <p>{{ filter }}: {{ desc }}</p>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}

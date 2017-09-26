@@ -7,9 +7,10 @@
 	</head>
 	<body>
 		<header>
-			<h1>{% block main_header %}{% endblock %}</h1>
+			<h1>Website Title</h1>
 		</header>
 		<main>
+			<h2>{% block main_header %}{% endblock %}</h2>
 			{% with messages = get_flashed_messages() %}
 				{% if messages %}
 					{% for message in messages %}
@@ -19,5 +20,8 @@
 			{% endwith %}
 			{% block content %}{% endblock %}
 		</main>
+		<footer>
+			
+		</footer>
 	</body>
 </html>
