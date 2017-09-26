@@ -33,12 +33,12 @@ def search_file_for_hooks_filters(contents):
 		# Check for a hook on the line
 		hook_match = hook_pattern.match(line)
 		if hook_match:
-			add_hook(hooks, hook_match[1], previous_line)
+			add_hook(hooks, hook_match.group(1), previous_line)
 		
 		# Check for a filter on the line
 		filter_match = filter_pattern.match(line)
 		if filter_match:
-			add_filter(filters, filter_match[1], previous_line)
+			add_filter(filters, filter_match.group(1), previous_line)
 
 		# Save line as previous line for next cycle in loop
 		previous_line = line
@@ -49,7 +49,7 @@ def add_hook(hooks, hook, previous_line):
 	"""Adds hook to list hooks if not already in list"""
 	doc_match = doc_pattern.match(previous_line)
 	if doc_match:
-		hooks[hook] = doc_match[1]
+		hooks[hook] = doc_match.group(1)
 	else:
 		hooks[hook] = ''
 	return hooks
@@ -59,7 +59,7 @@ def add_filter(filters, filter, previous_line):
 	"""Adds filter to list filters if not already in list"""
 	doc_match = doc_pattern.match(previous_line)
 	if doc_match:
-		filters[filter] = doc_match[1]
+		filters[filter] = doc_match.group(1)
 	else:
 		filters[filter] = ''
 	return filters
