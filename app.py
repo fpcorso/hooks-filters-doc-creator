@@ -17,8 +17,14 @@ def main_page():
 	if form.validate_on_submit():
 		flash("New repo added!")
 		models.Queue.create_queue_entry(form.user.data, form.repo.data, form.email.data)
+		return redirect(url_for('submitted'), code=302)
 	return render_template('index.html', form=form)
 
+
+@app.route('/submitted', methods=('GET', 'POST'))
+def submitted():
+	"""Thank you page shown after repo is submitted."""
+	return render_template('submitted.html')
 
 @app.route('/<id>', methods=('GET', 'POST'))
 def repo_page(id):
