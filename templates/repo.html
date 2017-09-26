@@ -1,9 +1,8 @@
 {% extends 'layout.html' %}
 {% from 'macros.html' import render_field %}
-{% block head_title %}Add a repo{% endblock %}
-{% block main_header %}Add a repo{% endblock %}
+{% block head_title %}Repo: {{ repo }}{% endblock %}
+{% block main_header %}Repo: {{ repo }}{% endblock %}
 {% block content %}
-<h2>Repo: {{ repo }}</h2>
 <h3>Hooks</h3>
 {% for hook, desc in hooks.items() %}
 <p>{{ hook }}: {{ desc }}</p>

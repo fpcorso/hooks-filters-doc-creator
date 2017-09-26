@@ -20,12 +20,15 @@ def main_page():
 	return render_template('index.html', form=form)
 
 
-@app.route('/:id', methods=('GET', 'POST'))
+@app.route('/<id>', methods=('GET', 'POST'))
 def repo_page(id):
 	"""Page for a repo. Shows hooks and filters of the repo."""
-	repo = models.Queue.select().where(Queue.id == id).get()
-	hooks = json.loads(repo.hooks)
-	filters = json.loads(repo.filters)
+	hooks = dict()
+	filters = dict()
+	repo = models.Queue.select().where(models.Queue.id == id).get()
+	if hooks:
+		hooks = json.loads(repo.hooks)
+		filters = json.loads(repo.filters)
 	return render_template('repo.html', repo=repo.repo, hooks=hooks, filters=filters)
 
 
