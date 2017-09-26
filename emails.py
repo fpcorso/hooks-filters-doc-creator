@@ -7,7 +7,7 @@ import config
 def send_finished_email(to, user, repo, repo_id):
 	"""Sends an email telling user that their repo has been analyzed."""
 	subj = "Your repo's hooks and filters are ready!"
-	body = "<h1>Your repo: {}/{} has been analyzed!</h1><a href='test/{}'>Click here to view results!</a><p>~Frank Corso</p><p>Twitter: <a href='https://twitter.com/fpcorso'>@fpcorso</a></p>".format(
+	body = "<h1>Your repo: {}/{} has been analyzed!</h1><a href='http://doc.frankcorso.me/{}'>Click here to view results!</a><p>~Frank Corso</p><p>Twitter: <a href='https://twitter.com/fpcorso'>@fpcorso</a></p>".format(
 		user, repo, repo_id
 	)
 	send_email(to, subj, body)
