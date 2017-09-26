@@ -17,7 +17,7 @@ def locate_all_hooks_filters(user, repo):
 		file_contents = github.get_file_lines(user, repo, file)
 		hooks_filters = search_file_for_hooks_filters(file_contents)
 		hooks.update(hooks_filters['hooks'])
-		filters.update(hooks_filters['filters'])			
+		filters.update(hooks_filters['filters'])
 	return hooks, filters
 
 

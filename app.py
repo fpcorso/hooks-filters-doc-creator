@@ -26,7 +26,7 @@ def repo_page(id):
 	hooks = dict()
 	filters = dict()
 	repo = models.Queue.select().where(models.Queue.id == id).get()
-	if hooks:
+	if repo.hooks:
 		hooks = json.loads(repo.hooks)
 		filters = json.loads(repo.filters)
 	return render_template('repo.html', repo=repo.repo, hooks=hooks, filters=filters)

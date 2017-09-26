@@ -21,16 +21,21 @@ def clear_screen():
 def main_loop():
 	"""Monitiors queue and loads data for next repo in queue"""
 	while True:
+		print('*** Loading repo... ***')
 		repo = models.Queue.get_next_repo()
 		if repo:
+			print('*** Found repo: {} ***'.format(repo.repo))
 			hooks, filters = locate.locate_all_hooks_filters(repo.user, repo.repo)
 			repo.hooks = json.dumps(hooks)
 			repo.filters = json.dumps(filters)
+			print('*** Saving... ***')
 			repo.save()
 		sleep(300) # sleep for a few minutes to not go over GitHub rate limit  			
 
 
 if __name__ == '__main__':
 	clear_screen()
+	print('*** Checking database... ***')
 	models.initialize()
+	print('*** Starting loop... ***')
 	main_loop()
