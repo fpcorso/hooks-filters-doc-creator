@@ -12,6 +12,7 @@ from time import sleep
 import locate
 import github
 import models
+import emails
 
 
 def clear_screen():
@@ -28,8 +29,11 @@ def main_loop():
 			hooks, filters = locate.locate_all_hooks_filters(repo.user, repo.repo)
 			repo.hooks = json.dumps(hooks)
 			repo.filters = json.dumps(filters)
+			repo.status = 'finished'
 			print('*** Saving... ***')
 			repo.save()
+			print('*** Sending email... ***')
+			emails.send_finished_email(repo.email, repo.user, repo.repo, repo.id)
 		sleep(300) # sleep for a few minutes to not go over GitHub rate limit  			
 
 
