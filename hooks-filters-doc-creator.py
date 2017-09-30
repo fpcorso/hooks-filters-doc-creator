@@ -22,7 +22,6 @@ def clear_screen():
 def main_loop():
 	"""Monitiors queue and loads data for next repo in queue"""
 	while True:
-		print('*** Loading repo... ***')
 		repo = models.Queue.get_next_repo()
 		if repo:
 			print('*** Found repo: {} ***'.format(repo.repo))

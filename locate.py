@@ -52,14 +52,18 @@ def search_file_for_hooks_filters(contents, filename):
 def add_hook_filter(line_number, filename, list_of_items, new_item, previous_line):
 	"""Adds hook/filter to list of hooks/filters if not already in list"""
 	doc = prepare_documentation(previous_line)
+
+	# If we already have the hook/filter...
 	if new_item in list_of_items:
+		# ... then add the new info
 		list_of_items[new_item]['loc'].append({
 			'file': filename,
 			'line': line_number
 		})
-		if len(list_of_items[new_item]['doc']) = 0 and len(doc) > 0:
+		if len(list_of_items[new_item]['doc']) == 0 and len(doc) > 0:
 			list_of_items[new_item]['doc'] = doc
 	else:
+		# ... else create a new dict saved into the hook/filter key in the list
 		list_of_items[new_item] = {
 			'doc': doc,
 			'loc': [
