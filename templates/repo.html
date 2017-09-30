@@ -10,7 +10,7 @@
 			<h4>{{ hook }}</h4>
 			<h5>{{ details['doc'] }}</h5>
 			{% for location in details['loc'] %}
-				<p>Found in <a href='https://github.com/{{ user }}/{{ repo }}/blob/master/{{ location['file'] }}#L{{ location['line'] }}'>{{ location['file'] }} on line {{ location['line'] }}</a></p>
+				<p>Found in <a target="_blank" href='https://github.com/{{ user }}/{{ repo }}/blob/master/{{ location['file'] }}#L{{ location['line'] }}'>{{ location['file'] }} on line {{ location['line'] }}</a></p>
 			{% endfor %}
 		{% endfor %}
 		<h3>Filters</h3>
@@ -18,7 +18,7 @@
 			<h4>{{ filter }}</h4>
 			<h5>{{ details['doc'] }}</h5>
 			{% for location in details['loc'] %}
-			<p>Found in <a href='https://github.com/{{ user }}/{{ repo }}/blob/master/{{ location['file'] }}#L{{ location['line'] }}'>{{ location['file'] }} on line {{ location['line'] }}</a></p>
+			<p>Found in <a target="_blank" href='https://github.com/{{ user }}/{{ repo }}/blob/master/{{ location['file'] }}#L{{ location['line'] }}'>{{ location['file'] }} on line {{ location['line'] }}</a></p>
 			{% endfor %}
 		{% endfor %}
 	</div>
