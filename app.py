@@ -35,7 +35,7 @@ def repo_page(id):
 	if repo.hooks:
 		hooks = json.loads(repo.hooks)
 		filters = json.loads(repo.filters)
-	return render_template('repo.html', repo=repo.repo, hooks=hooks, filters=filters)
+	return render_template('repo.html', repo=repo.repo, user=repo.user, hooks=hooks, filters=filters)
 
 
 if __name__ == '__main__':
