@@ -8,17 +8,17 @@
 		<h3>Hooks</h3>
 		{% for hook, details in hooks.items() %}
 			<h4>{{ hook }}</h4>
-			<h5>{{ details.doc }}</h5>
-			{% for location in details.loc %}
-				<p>Found in {{ location.file }} on line {{ location.line }}</p>
+			<h5>{{ details['doc'] }}</h5>
+			{% for location in details['loc'] %}
+				<p>Found in {{ location['file'] }} on line {{ location['line'] }}</p>
 			{% endfor %}
 		{% endfor %}
 		<h3>Filters</h3>
 		{% for filter, details in filters.items() %}
 			<h4>{{ filter }}</h4>
-			<h5>{{ details.doc }}</h5>
-			{% for location in details.loc %}
-				<p>Found in {{ location.file }} on line {{ location.line }}</p>
+			<h5>{{ details['doc'] }}</h5>
+			{% for location in details['loc'] %}
+				<p>Found in {{ location['file'] }} on line {{ location['line'] }}</p>
 			{% endfor %}
 		{% endfor %}
 	</div>
