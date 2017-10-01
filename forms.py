@@ -5,14 +5,14 @@ from wtforms.validators import DataRequired
 
 class AddRepoForm(Form):
 	user = StringField(
-		'user',
+		'GitHub Username',
 		validators=[DataRequired()]
 	)
 	repo = StringField(
-		'repo',
+		'GitHub Repo',
 		validators=[DataRequired()]
 	)
 	email = StringField(
-		'email',
+		'Your Email',
 		validators=[DataRequired()]
 	)
