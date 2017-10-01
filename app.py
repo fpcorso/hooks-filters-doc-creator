@@ -26,16 +26,20 @@ def submitted():
 	"""Thank you page shown after repo is submitted."""
 	return render_template('submitted.html')
 
+
 @app.route('/<id>', methods=('GET', 'POST'))
 def repo_page(id):
 	"""Page for a repo. Shows hooks and filters of the repo."""
 	hooks = dict()
 	filters = dict()
-	repo = models.Queue.select().where(models.Queue.id == id).get()
-	if repo.hooks:
-		hooks = json.loads(repo.hooks)
-		filters = json.loads(repo.filters)
-	return render_template('repo.html', repo=repo.repo, user=repo.user, hooks=hooks, filters=filters)
+	try:
+		repo = models.Queue.select().where(models.Queue.id == id).get()
+		if repo.hooks:
+			hooks = json.loads(repo.hooks)
+			filters = json.loads(repo.filters)
+		return render_template('repo.html', repo=repo.repo, user=repo.user, hooks=hooks, filters=filters)
+	except models.DoesNotExist:
+		return redirect(url_for('main_page'), code=302)
 
 
 if __name__ == '__main__':
