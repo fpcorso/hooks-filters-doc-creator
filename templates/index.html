@@ -5,6 +5,19 @@
 {% block content %}
 <section>
 	<div class="section-content">
+		<h2>What is this?</h2>
+		<p>This site can analyze a public GitHub repo for a WordPress plugin or theme and 
+			will create documenation for all hooks and filters in the plugin or theme.</p>
+
+		<p>The documentation will include the hook or filter, accompanying code comments, 
+			file and line number for the hook or filter, and a direct link to the line in GitHub.</p>
+
+		<p>Fill in the form below with your GitHub username and repo and this site will email 
+			you when your documentation is ready.</p>
+	</div>
+</section>
+<section>
+	<div class="section-content">
 		<h2>Add A Repo</h2>
 		<form method="POST" action="" class="form repo-form">
 			{{ form.hidden_tag() }}
